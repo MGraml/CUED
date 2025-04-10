@@ -41,13 +41,16 @@ class TMD(TwoBandHamiltonianSystem):
 
     def __init__(self, a=sp.Symbol('a'), gamma=sp.Symbol('gamma'), Delta=sp.Symbol('Delta')):
 
-        kx = self.kx
-        ky = self.ky
+        a *= sp.sqrt(3)/2
+
+        x1 = self.kx*a/sp.sqrt(3)
+        x2 = self.kx*a/(2*sp.sqrt(3))
+        y = self.ky*a/2
 
 
         ho = 0
-        hx = -gamma *( sp.cos(kx*a/sp.sqrt(3)) + 2 * sp.cos(kx*a/(2*sp.sqrt(3))) * sp.cos(ky*a/2) )
-        hy = -gamma *( sp.sin(kx*a/sp.sqrt(3)) - 2 * sp.sin(kx*a/(2*sp.sqrt(3))) * sp.cos(ky*a/2) )
+        hx = -gamma *( sp.cos(x1) + 2 * sp.cos(x2) * sp.cos(y) )
+        hy = -gamma *( sp.sin(x1) - 2 * sp.sin(x2) * sp.cos(y) )
         hz = Delta
         
         super().__init__(ho, hx, hy, hz) 
